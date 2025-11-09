@@ -48,14 +48,12 @@ app.get('/api/users', (req, res) => {
 
   let filtered = [...users];
 
-  // ✅ Partial name match (case-insensitive)
   if (name) {
     filtered = filtered.filter(u =>
       u.name.toLowerCase().includes(name.toLowerCase())
     );
   }
 
-  // ✅ Filter by age range
   if (minAge) {
     filtered = filtered.filter(u => u.age >= parseInt(minAge));
   }
@@ -63,14 +61,14 @@ app.get('/api/users', (req, res) => {
     filtered = filtered.filter(u => u.age <= parseInt(maxAge));
   }
 
-  // ✅ If no match found
+
   if (filtered.length === 0) {
     return res.status(404).send({ message: 'No users found' });
   }
 
   res.send(filtered);
 });
-// ✅ Single user by name (path param)
+
 app.get('/api/users/:name', (req, res) => {
   const { name } = req.params;
   const foundUser = users.find(
